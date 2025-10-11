@@ -95,6 +95,7 @@ High-Level Design (HLD)
     Showcase the power of AI reasoning, visualization, and structured learning in one app
 
 8. Updated System Diagram
+```
 ┌──────────────────────────────┐
 │        React UI (Web)        │
 │──────────────────────────────│
@@ -128,4 +129,4 @@ High-Level Design (HLD)
 │ Store User Maps & Sessions    │
 │ Save Node Data & Metadata     │
 └───────────────────────────────┘
-
+```
