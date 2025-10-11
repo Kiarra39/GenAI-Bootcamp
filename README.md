@@ -1,1 +1,3 @@
-# team-project
+Team Name: GenAISquad
+
+AI Agent Builder Workshop
