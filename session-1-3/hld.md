@@ -1,100 +1,139 @@
-AHigh-Level Design (HLD)
+High-Level Design (HLD)
 
 1. Project Title : MindMapAI 
 
-2. Team Members : 
-* Alen Lajeesh
-* Albert Abraham
-* Danushri Prakash
-* Hemasri Suresh
-* Kiesha Maria
+    MindMapAI – AI-Powered Visual Knowledge Mapper
 
-3. Problem Statement: 
-Learners, researchers, and professionals often struggle to organize large amounts of unstructured information (notes, research papers, or study material) into a form that’s easy to understand and remember.
-Traditional note-taking tools are linear and text-heavy, making it difficult to visualize relationships between ideas.
+2. Team Members
 
-MindMapAI solves this by using Generative AI to convert raw text into an interactive, intelligent mind map — turning information into visually connected knowledge networks.
+    Alen Lajeesh
+    Albert Abraham
+    Danushri Prakash
+    Hemasri Suresh
+    Kiesha Maria
 
+3. Problem Statement
+
+    Learners, researchers, and professionals often find it hard to manage and understand large volumes of unstructured information — such as notes, documents, or research material.Traditional note-taking tools are linear and lack visualization, making it difficult to see relationships between ideas.MindMapAI solves this problem by using Generative AI (Gemini) to automatically convert plain text or documents into an interactive, dynamic mind map that visualizes the relationships between concepts.It transforms raw information into a visual knowledge network — enabling better understanding, retention, and exploration.
 
 4. Core Components
-UI : 
-* Simple web interface (HTML, CSS, JavaScript)
-* User can upload files or type notes
-* Output is shown as a mind map using a lightweight library (like GoJS, Mermaid.js, or vis.js)
+    Frontend (React)
+        Developed using React.js (for modular and interactive UI)
 
-LLM API : gemini 
+        Pages: 
+            Upload/Notes Page, Mind Map Viewer, Node Detail Viewer
 
-Tools : 
-* Frontend: HTML, CSS, JavaScript
-* Backend: Python with Flask (optional — can skip if directly using API calls)
-* Libraries:
-	- fetch() in JS for API calls
-	-D3.js or Mermaid.js for drawing the map
-	-dotenv for storing API keys safely
+        Libraries:
+            React Flow or D3.js for rendering the mind map
+            Axios / Fetch for API communication
+            Tailwind CSS / Material UI for responsive UI
 
- 5. LLM’s Primary Task:
+        Features:
+            Upload or paste notes/text
+            Submit to AI for analysis
+            View generated mind map
+            Click a node to expand related concepts or summaries
 
-* Extract structured knowledge (concepts + relationships) from user input
-* Generate JSON schema representing nodes and edges
-* Summarize and enhance each node with relevant references or questions
-* Support dynamic expansion when users click a node (context-aware knowledge expansion)
+    Backend (Express + Node.js)
+
+        API server built using Express.js
+
+        Responsibilities:
+
+            Handle requests from frontend
+            Communicate securely with Gemini API
+            Preprocess input (clean text, extract keywords)
+            Postprocess output (convert Gemini JSON → node-edge structure)
+            Middleware for authentication and CORS handling
+
+    LLM Layer – Gemini AI
+
+        Gemini API handles the main AI logic:
+
+            Extracts concepts and relationships from text
+            Generates JSON schema for nodes and edges
+            Creates summaries, quiz questions, and related ideas
+            Optional RAG (Retrieval-Augmented Generation):
+            Fetches relevant data from Wikipedia API or stored documents to enrich nodes
+
+    Database Layer (MongoDB)
+
+        Stores:
+
+            User profiles and sessions
+            Generated mind maps (in JSON format)
+            Node summaries, history, and quiz data
+            Enables reloading, sharing, or exporting previous mind maps
+
+5. LLM’s Primary Task (Gemini API)
+
+    Extract Knowledge Graph
+    Identify entities (concepts) and their relationships
+    Structure them in JSON: { nodes: [...], edges: [...] }
+    Enhance Knowledge
+    Add concise summaries and relevant details per node
+    Suggest related ideas and sources (via RAG)
+    Generate Learning Support
+    Create flashcards or quiz questions from nodes
+    Provide context-aware explanations when user expands a node
 
 6. Inputs and Outputs
-Input:
+    Input:
 
-* User-provided text, PDF, or notes
-* Optional: keywords or learning goal
-* External knowledge (via RAG from Wikipedia or documents)
+        User-provided text, notes, or PDFs (converted to text)
+        Optional keywords or topic goals
+        (Future Scope) Integration with external sources like Wikipedia or uploaded documents
 
-Output:
+    Output:
 
-* Interactive mind map (concepts as nodes, relationships as edges)
-* Node details (summary, citations, related concepts, quiz questions)
-* Exportable map (PNG, JSON, or shareable link)
-
-7. Expected Outcome: 
-* AI auto-generates a visual concept map from any knowledge source.
-* Users can explore, summarize, and quiz themselves on topics visually.
-* Enhances learning productivity, retention, and research clarity.
-* Provides a unique, demo-ready AI visualization tool showcasing the power of structured reasoning and retrieval.
-
-8. System Diagram:
-
-            ┌───────────────────────────┐
-            │        User UI (Web)      │
-            │───────────────────────────│
-            │ Upload Notes / PDFs       │
-            │ Display Mind Map          │
-            │ View Node Summaries       │
-            └────────────┬──────────────┘
-                         │
-                         ▼
-             ┌────────────────────────┐
-             │     Backend Server     │
-             │ (Flask / FastAPI API)  │
-             ├────────────────────────┤
-             │ Handles API Calls       │
-             │ Pre/Post-Processing     │
-             │ Function Calling Logic  │
-             └──────────┬─────────────┘
-                        │
-                        ▼
-        ┌────────────────────────────────┐
-        │        LLM + RAG Engine        │
-        │────────────────────────────────│
-        │ Prompt Engineering Layer        │
-        │ Concept & Relationship Extraction│
-        │ Wikipedia / Docs Retrieval (RAG) │
-        │ Node Summaries & Quiz Gen       │
-        └────────────────────────────────┘
-                        │
-                        ▼
-              ┌────────────────────┐
-              │   Database Layer    │
-              │ (MongoDB / Firebase)│
-              │ Store Mind Maps     │
-              │ User Sessions       │
-              └────────────────────┘
+        Interactive Mind Map (React Flow / D3.js)
+        Nodes = key concepts
+        Edges = conceptual relationships
+        Node Details Panel
+        Summaries, references, related questions
+        Export options:
+        PNG (image of map)
+        JSON (for re-importing)
+        Shareable link
 
 
-GitHub Submission:
+    Automatically visualize any topic as an intelligent, AI-generated concept map
+    Improve understanding and knowledge retention
+    Enable interactive exploration of complex subjects
+    Showcase the power of AI reasoning, visualization, and structured learning in one app
+
+8. Updated System Diagram
+                 ┌───────────────────────────┐
+                 │        React UI (Web)      │
+                 │─────────────────────────── │
+                 │ Upload Notes / Text        │
+                 │ Display Mind Map (ReactFlow)│
+                 │ Node Details & Expansion   │
+                 └────────────┬──────────────┘
+                              │
+                              ▼
+               ┌────────────────────────────┐
+               │      Express.js Backend     │
+               │────────────────────────────│
+               │ Handles API Requests        │
+               │ Pre/Post Processing         │
+               │ Routes to Gemini API        │
+               └──────────┬─────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────┐
+           │          Gemini AI API          │
+           │────────────────────────────────│
+           │ Concept & Relation Extraction   │
+           │ Summary & Quiz Generation       │
+           │ Optional RAG (Wikipedia / Docs) │
+           └────────────────────────────────┘
+                          │
+                          ▼
+              ┌──────────────────────────────┐
+              │         MongoDB Database      │
+              │──────────────────────────────│
+              │ Store User Maps & Sessions    │
+              │ Save Node Data & Metadata     │
+              └──────────────────────────────┘
+
