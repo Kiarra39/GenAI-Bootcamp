@@ -1,4 +1,4 @@
-AHigh-Level Design (HLD)
+High-Level Design (HLD)
 
 1. Project Title
 
