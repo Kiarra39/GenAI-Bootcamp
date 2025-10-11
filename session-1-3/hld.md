@@ -1,6 +1,6 @@
 High-Level Design (HLD)
 
-1. Project Title
+1. Project Title : MindMapAI 
 
     MindMapAI – AI-Powered Visual Knowledge Mapper
 
@@ -96,7 +96,6 @@ High-Level Design (HLD)
         JSON (for re-importing)
         Shareable link
 
-7. Expected Outcome
 
     Automatically visualize any topic as an intelligent, AI-generated concept map
     Improve understanding and knowledge retention
