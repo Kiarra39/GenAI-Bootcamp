@@ -1,40 +1,24 @@
 AHigh-Level Design (HLD)
 
-1. GenAISquad
+1. Project Title
 
-2. Team Members:
-    
-    - ALEN LAJEESH
-    - ALBERT ABRAHAM
-    - DANUSHRI PRAKASH
-    - HEMASRI P S
-    - KIESHA MARIA GIBIN
+2. Team Members
 
 3. Problem Statement
 
-    
-
 
 4. Core Components
+UI
+LLM API
+Tools
 
-    UI
-    LLM API
-    Tools
-
- 5. LLM’s Primary Task:
-
+ 5. LLM’s Primary Task
 
 6. Inputs and Outputs
+Input
+Output
 
-    Input
-    Output
+7. Expected Outcome
 
-7. Expected Outcome:
-
-
-git 8. System Diagram
-
-
-
-
-
+8. System Diagram
+GitHub Submission:
