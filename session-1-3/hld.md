@@ -33,15 +33,9 @@ AHigh-Level Design (HLD)
 
 
 8. System Diagram
-<<<<<<< HEAD
-GitHub Submission:
-
-hello
-=======
 
 
 
 
->>>>>>> 65fe323e70d820e44536c659007f73a80a275cf4
 
 hello
