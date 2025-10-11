@@ -6,11 +6,11 @@ High-Level Design (HLD)
 
 2. Team Members
 
-    Alen Lajeesh
-    Albert Abraham
-    Danushri Prakash
-    Hemasri Suresh
-    Kiesha Maria
+    Alen Lajeesh, 
+    Albert Abraham, 
+    Danushri Prakash, 
+    Hemasri Suresh, 
+    Kiesha Maria, 
 
 3. Problem Statement
 
