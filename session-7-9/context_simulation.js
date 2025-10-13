@@ -19,7 +19,7 @@ function addChat(input) {
 console.log("type in chat.type exit to stop the program. type 'ctrl-d' to sent input");
 
 
-
+//prompt for user
 while (true) {
     let input = fs.readFileSync(0, "utf-8").trim().split('\n');
 
