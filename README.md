@@ -81,5 +81,5 @@ With the integration of generative AI (Gemini API) and modern web technologies, 
 ---
 
 ## License
-This project is licensed under the MIT License.
+This project is licensed under NONE . Also This is a Open Source 
 
