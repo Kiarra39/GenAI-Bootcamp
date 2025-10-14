@@ -16,11 +16,11 @@ build/
 .DS_Store
 
 # === Env files ===
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+#.env
+#.env.local
+#.env.development.local
+#.env.test.local
+#.env.production.local
 
 # === Editor files ===
 .vscode/
@@ -30,8 +30,8 @@ build/
 *.log
 
 # === OS system files ===
-Thumbs.db
-.DS_Store
+#Thumbs.db 
+#.DS_Store
 
 # === TypeScript ===
 *.tsbuildinfo
