@@ -2,12 +2,10 @@ const Note = require('../models/Note');
 const Folder = require('../models/Folder');
 const mongoose = require('mongoose');
 
-// 📘 Create a new note
 exports.createNote = async (req, res) => {
   try {
     const { folderId, title, content } = req.body;
 
-    // Check folder ownership
     const folder = await Folder.findOne({ _id: folderId, userId: req.userId });
     if (!folder) return res.status(403).json({ message: 'Folder not found or access denied' });
 
@@ -24,7 +22,6 @@ exports.createNote = async (req, res) => {
   }
 };
 
-// Get all notes for a folder
 exports.getNotesByFolder = async (req, res) => {
   try {
     const { folderId } = req.params;
@@ -35,7 +32,6 @@ exports.getNotesByFolder = async (req, res) => {
   }
 };
 
-// Update note content
 exports.updateNote = async (req, res) => {
   try {
     const { noteId } = req.params;
@@ -54,7 +50,17 @@ exports.updateNote = async (req, res) => {
   }
 };
 
-//Generate or return AI Summary (placeholder)
+exports.deleteNote = async (req, res) => {
+  try {
+    const note = await Note.findById(req.params.id);
+    if (!note) return res.status(404).json({ message: "Note not found" });
+
+    await note.deleteOne();
+    res.json({ message: "Note deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error deleting note" });
+  }
+};
 exports.generateSummary = async (req, res) => {
   try {
     const { noteId } = req.params;

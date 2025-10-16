@@ -1,7 +1,6 @@
 const Node = require('../models/Node');
 const Note = require('../models/Note');
 
-// 🪢 Create learning nodes from summary (placeholder)
 exports.createNodes = async (req, res) => {
   try {
     const { noteId } = req.params;
@@ -11,7 +10,6 @@ exports.createNodes = async (req, res) => {
     if (!note.aiSummary || !note.aiSummary.text)
       return res.status(400).json({ message: 'No summary available for this note' });
 
-    // Simple placeholder logic to split summary into small nodes
     const sentences = note.aiSummary.text.split('. ').slice(0, 5);
     const nodes = [];
 
@@ -30,7 +28,6 @@ exports.createNodes = async (req, res) => {
   }
 };
 
-// 🔗 Get all nodes for a note
 exports.getNodes = async (req, res) => {
   try {
     const { noteId } = req.params;
@@ -40,4 +37,34 @@ exports.getNodes = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+exports.updateNode = async (req, res) => {
+  try {
+    const { nodeId } = req.params;
+    const { title, snippet } = req.body;
 
+    const node = await Node.findById(nodeId);
+    if (!node) return res.status(404).json({ message: 'Node not found' });
+
+    node.title = title || node.title;
+    node.snippet = snippet || node.snippet;
+
+    await node.save();
+    res.json(node);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.deleteNode = async (req, res) => {
+  try {
+    const { nodeId } = req.params;
+
+    const node = await Node.findById(nodeId);
+    if (!node) return res.status(404).json({ message: 'Node not found' });
+
+    await node.deleteOne();
+    res.json({ message: 'Node deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
