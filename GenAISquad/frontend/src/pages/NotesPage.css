@@ -1,0 +1,118 @@
+.notes-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.notes-header {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.notes-header input[type="text"] {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #b9c9ff;
+  font-size: 1rem;
+}
+
+.add-folder {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.add-folder input {
+  width: 200px;
+}
+
+.add-folder button {
+  background-color: #3d4fe0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.add-folder button:hover {
+  background-color: #2f3db3;
+}
+
+.folder-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.folder-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.folder-click-area {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.folder-click-area:hover {
+  transform: scale(1.03);
+}
+
+.note-section {
+  margin-top: 0.5rem;
+  background-color: #f0f4ff;
+  border: 1px solid #cfd7ff;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  width: 180px;
+}
+
+.note-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.note-item {
+  padding: 0.3rem 0;
+  cursor: pointer;
+  color: #2f3db3;
+  transition: 0.2s;
+}
+
+.note-item:hover {
+  text-decoration: underline;
+  color: #1f2b8e;
+}
+
+.no-notes {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.add-note-btn {
+  background: none;
+  border: none;
+  color: #2f3db3;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+.add-note-btn:hover {
+  text-decoration: underline;
+  color: #1f2b8e;
+}
+
+.empty-message {
+  color: #666;
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
+}

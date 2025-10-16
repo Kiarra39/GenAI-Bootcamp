@@ -1,4 +1,4 @@
-.login-page {
+.register-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -6,7 +6,7 @@
   background: linear-gradient(135deg, #dee7ff, #b7c9ff);
 }
 
-.login-form {
+.register-form {
   background: white;
   padding: 2rem 3rem;
   border-radius: 12px;
@@ -17,19 +17,19 @@
   gap: 1rem;
 }
 
-.login-form h2 {
+.register-form h2 {
   text-align: center;
   color: #2f3db3;
 }
 
-.login-form input {
+.register-form input {
   padding: 0.7rem;
   border-radius: 6px;
   border: 1px solid #bfc6ff;
   font-size: 1rem;
 }
 
-.login-form input:focus {
+.register-form input:focus {
   outline: none;
   border-color: #3d4fe0;
 }

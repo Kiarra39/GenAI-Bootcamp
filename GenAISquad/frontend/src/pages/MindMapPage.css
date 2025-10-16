@@ -1,0 +1,16 @@
+.mindmap-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.mindmap-page input {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #b9c9ff;
+  width: 250px;
+}
+
+.mindmap-page h2 {
+  color: #2f3db3;
+}

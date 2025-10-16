@@ -1,0 +1,25 @@
+.mindmap-container {
+  margin-top: 1rem;
+}
+
+.mindmap-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.mindmap-node {
+  padding: 0.7rem 1rem;
+  background-color: #e3e9ff;
+  border: 2px solid #b9c9ff;
+  border-radius: 8px;
+  min-width: 120px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mindmap-node:hover {
+  background-color: #d4dfff;
+  transform: scale(1.05);
+}

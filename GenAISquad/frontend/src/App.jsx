@@ -1,46 +1,82 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-// src/App.jsx
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import WelcomePage from "./pages/WelcomePage";
-import UploadPage from "./pages/UploadPage";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
-import DashboardPage from "./pages/DashboardPage";
-import OpenFolderPage from './pages/OpenFolderPage';
-//import MindMapPage from "./pages/MindMapPage";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
-function App() {
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicNavbar from "./components/PublicNavbar";
+
+// Pages
+import LandingPage from "./pages/LandingPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
+import NotesPage from "./pages/NotesPage";
+import NoteDetailPage from "./pages/NoteDetailPage";
+import TasksPage from "./pages/TasksPage";
+import MindMapPage from "./pages/MindMapPage";
+
+export default function App() {
   return (
     <Router>
-      <Routes>
-        {/* Default page */}
-        <Route path="/" element={<WelcomePage />} />
+      <AuthProvider>
+        <PublicNavbar />
 
-        {/* Upload page */}
-        <Route path="/upload" element={<UploadPage />} />
+        <Routes>
+          {/* Public routes */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
 
-        {/* Login page */} 
-        <Route path="/Login" element={<LoginPage />} />
+          {/* Protected routes */}
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Signup page */}
-        <Route path="/Signup" element={<SignupPage />} />
-        
-        {/* Dashboard page */}
-        <Route path="/dashboard" element={<DashboardPage />} />
+          <Route
+            path="/notes"
+            element={
+              <ProtectedRoute>
+                <NotesPage />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Open folder page */}
-        <Route path="/open-folder" element={<OpenFolderPage />} />
+          <Route
+            path="/notes/:id"
+            element={
+              <ProtectedRoute>
+                <NoteDetailPage />
+              </ProtectedRoute>
+            }
+          />
 
+          <Route
+            path="/tasks"
+            element={
+              <ProtectedRoute>
+                <TasksPage />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Mind map display page */}
-        {/*<Route path="/mindmap" element={<MindMapPage />} />*/}
-      </Routes>
+          <Route
+            path="/mindmap"
+            element={
+              <ProtectedRoute>
+                <MindMapPage />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Catch-all */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }
-
-export default App;

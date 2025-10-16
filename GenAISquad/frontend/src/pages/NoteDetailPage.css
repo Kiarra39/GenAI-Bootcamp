@@ -1,0 +1,112 @@
+.note-detail-page {
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #111827;
+}
+
+.note-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #e6ecff;
+  padding-bottom: 12px;
+}
+
+.note-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #3655d4;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.note-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.note-title {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #24305a;
+}
+
+.rename-input {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #c7d5ff;
+  font-size: 1rem;
+}
+
+/* Button styles */
+.btn {
+  background-color: #3655d4;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover { background-color: #2c46b0; }
+
+.btn-alt {
+  background: none;
+  border: 1px solid #d6defe;
+  color: #333;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-alt:hover { background: #f3f7ff; }
+
+/* Body layout */
+.note-body {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.editor-section, .mindmap-section {
+  background: white;
+  border: 1px solid #e6ecff;
+  padding: 14px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(6, 15, 41, 0.04);
+}
+
+.editor-section h3, .mindmap-section h3 {
+  margin-top: 0;
+  color: #24305a;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .note-body {
+    grid-template-columns: 1fr;
+  }
+  .mindmap-section {
+    order: 2;
+  }
+}
