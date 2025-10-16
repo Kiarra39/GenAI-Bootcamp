@@ -1,6 +1,6 @@
 const axios = require('axios');
-const Note = require('../models/noteModel');
-const Node = require('../models/nodeModel');
+const Note = require('../models/Note');
+const Node = require('../models/Node');
 
 const generateNoteSummary = async (req, res) => {
   try {
