@@ -1,27 +1,38 @@
-import React, { useState } from "react";
-import NoteEditor from "../components/NoteEditor";
+import React from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import MindMap from "../components/MindMap";
+import "../components/MindMap.css";
 import "./MindMapPage.css";
 
 export default function MindMapPage() {
-  const [noteId, setNoteId] = useState("");
+  const { noteId } = useParams();
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate("/notes");
+  };
 
   return (
     <div className="mindmap-page">
-      <h2>Mind Map Visualization</h2>
-      <input
-        type="text"
-        placeholder="Enter Note ID to load"
-        value={noteId}
-        onChange={(e) => setNoteId(e.target.value)}
-      />
+      {/* Top Navbar */}
+      <header className="mindmap-header">
+        <h1 className="mindmap-title">🧠 MindMap Generator</h1>
+        <button className="back-btn" onClick={handleBack}>
+          ← Back to Notes
+        </button>
+      </header>
 
-      {noteId && (
-        <>
-          <NoteEditor noteId={noteId} />
+      {/* Content */}
+      <main className="mindmap-content">
+        {!noteId ? (
+          <div className="no-note">
+            <p>⚠️ No note selected. Please select a note to generate a MindMap.</p>
+            <button onClick={handleBack}>Go Back</button>
+          </div>
+        ) : (
           <MindMap noteId={noteId} />
-        </>
-      )}
+        )}
+      </main>
     </div>
   );
 }
