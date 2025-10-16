@@ -1,173 +1,96 @@
-import React, { useCallback, useState, useEffect } from "react";
+// src/components/MindMap.jsx
+import React, { useCallback, useState } from "react";
 import {
   ReactFlow,
   Background,
   Controls,
   MiniMap,
-  applyNodeChanges,
-  applyEdgeChanges,
+  useNodesState,
+  useEdgesState,
   addEdge,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import "./MindMap.css";
-import api from "../api/axios";
 
-export default function MindMap({ noteId }) {
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [summary, setSummary] = useState("");
+/**
+ * MindMap Component
+ * ------------------
+ * Renders an interactive graph visualization of AI-generated nodes.
+ * Expects `nodes` prop in the format:
+ * [
+ *   { id: '1', label: 'Main Topic' },
+ *   { id: '2', label: 'Subtopic', parent: '1' },
+ *   ...
+ * ]
+ */
+export default function MindMap({ nodes = [] }) {
+  // Convert backend nodes → ReactFlow format
+  const formattedNodes = nodes.map((node, index) => ({
+    id: node.id?.toString() || `${index + 1}`,
+    position: {
+      x: node.x || Math.random() * 400,
+      y: node.y || Math.random() * 300,
+    },
+    data: { label: node.label || "Untitled Node" },
+    style: {
+      borderRadius: "10px",
+      padding: "10px 15px",
+      backgroundColor: "#ede9fe",
+      border: "1.5px solid #5b21b6",
+      color: "#3b1b8c",
+      fontWeight: 500,
+      fontSize: "0.95rem",
+    },
+  }));
 
-  // 🧠 Fetch summary for this note
-  const loadSummary = async () => {
-    try {
-      const { data } = await api.get(`/notes/${noteId}`);
-      if (data?.summary) setSummary(data.summary);
-    } catch (err) {
-      console.error("Error fetching summary:", err);
-    }
-  };
+  const formattedEdges = nodes
+    .filter((n) => n.parent)
+    .map((n) => ({
+      id: `e${n.parent}-${n.id}`,
+      source: n.parent.toString(),
+      target: n.id.toString(),
+      type: "smoothstep",
+      animated: true,
+      style: { stroke: "#5b21b6", strokeWidth: 2 },
+    }));
 
-  // 🌿 Fetch nodes for this note
-  const loadNodes = async () => {
-    try {
-      const { data } = await api.get(`/nodes/${noteId}`);
-      if (!data?.length) {
-        setNodes([]);
-        setEdges([]);
-        return;
-      }
+  const [mapNodes, setNodes, onNodesChange] = useNodesState(formattedNodes);
+  const [mapEdges, setEdges, onEdgesChange] = useEdgesState(formattedEdges);
 
-      const formattedNodes = data.map((node, i) => ({
-        id: node._id,
-        data: { label: node.title },
-        position: {
-          x: 200 + (i % 4) * 160,
-          y: 100 + Math.floor(i / 4) * 120,
-        },
-      }));
-
-      setNodes(formattedNodes);
-      setEdges([]);
-    } catch (err) {
-      console.error("Error fetching nodes:", err);
-    }
-  };
-
-  // ⏱️ Load data when noteId changes
-  useEffect(() => {
-    if (noteId) {
-      loadSummary();
-      loadNodes();
-    }
-  }, [noteId]);
-
-  // ⚡ Generate AI summary + mindmap nodes
-  const generateMindMap = async () => {
-    try {
-      setLoading(true);
-      await api.post(`/ai/summary/${noteId}`);
-      await api.post(`/nodes/${noteId}/generate`);
-      await loadSummary();
-      await loadNodes();
-      alert("🧠 MindMap generated successfully!");
-    } catch (err) {
-      console.error("Error generating MindMap:", err);
-      alert("Failed to generate MindMap. Check console for details.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // ✏️ Edit a node title
-  const editNode = async (nodeId) => {
-    const newTitle = prompt("Enter a new title for this node:");
-    if (!newTitle) return;
-    try {
-      await api.put(`/nodes/${nodeId}`, { title: newTitle });
-      loadNodes();
-    } catch (err) {
-      console.error("Error editing node:", err);
-    }
-  };
-
-  // 🗑️ Delete a node
-  const deleteNode = async (nodeId) => {
-    if (!window.confirm("Are you sure you want to delete this node?")) return;
-    try {
-      await api.delete(`/nodes/${nodeId}`);
-      loadNodes();
-    } catch (err) {
-      console.error("Error deleting node:", err);
-    }
-  };
-
-  // 🕹️ ReactFlow event handlers
-  const onNodesChange = useCallback(
-    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    []
-  );
-  const onEdgesChange = useCallback(
-    (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-    []
-  );
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    []
+    (params) =>
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...params,
+            type: "smoothstep",
+            animated: true,
+            style: { stroke: "#5b21b6", strokeWidth: 2 },
+          },
+          eds
+        )
+      ),
+    [setEdges]
   );
 
   return (
     <div className="mindmap-container">
-      {/* Toolbar */}
-      <div className="mindmap-toolbar">
-        <button onClick={generateMindMap} disabled={loading}>
-          {loading ? "Generating..." : "🧠 Generate MindMap"}
-        </button>
-        <button onClick={loadNodes}>🔄 Refresh</button>
-      </div>
-
-      {/* Summary Section */}
-      <div className="summary-box">
-        <h4>Summary</h4>
-        <textarea
-          readOnly
-          value={summary || "No summary yet. Click Generate MindMap to create one."}
+      <ReactFlow
+        nodes={mapNodes}
+        edges={mapEdges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        fitView
+      >
+        <MiniMap
+          nodeColor={() => "#5b21b6"}
+          maskColor="#ede9fe"
+          nodeStrokeWidth={1}
         />
-      </div>
-
-      {/* MindMap Visualization */}
-      <div className="mindmap-flow">
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          fitView
-        >
-          <Background />
-          <MiniMap />
-          <Controls />
-        </ReactFlow>
-      </div>
-
-      {/* Node Management Section */}
-      {nodes.length > 0 && (
-        <div className="mindmap-node-actions">
-          <h4>Manage Nodes</h4>
-          <div className="node-list">
-            {nodes.map((node) => (
-              <div key={node.id} className="node-control">
-                <span>{node.data.label}</span>
-                <div>
-                  <button onClick={() => editNode(node.id)}>✏️</button>
-                  <button onClick={() => deleteNode(node.id)}>🗑️</button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+        <Controls />
+        <Background color="#dcd1f5" gap={18} />
+      </ReactFlow>
     </div>
   );
 }
