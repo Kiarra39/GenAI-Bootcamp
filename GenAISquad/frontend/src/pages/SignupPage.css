@@ -1,0 +1,168 @@
+/* src/pages/SignupPage.css */
+
+/* Outer container */
+.signup-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #cfdced;
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Header */
+.signup-header {
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.signup-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.brand {
+  color: #4338ca; /* Indigo-700 */
+}
+
+.signup-header p {
+  color: #555;
+  font-size: 1.1rem;
+}
+
+/* Signup Card */
+.signup-card {
+  background-color: #ffffff;
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 24rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Profile Icon */
+.profile-icon {
+  width: 6rem;
+  height: 6rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid #d1d5db;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9fafb;
+}
+
+.profile-svg {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Form — centered fields */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+}
+
+/* Each field group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.form-group label {
+  margin-bottom: 0.4rem;
+  color: #4b5563;
+  font-weight: 500;
+  text-align: center;
+  width: 100%;
+}
+
+.form-group input {
+  width: 90%;
+  max-width: 320px;
+  padding: 0.7rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: #edf2fa;
+  outline: none;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-group input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
+}
+
+/* Button */
+.signup-button {
+  width: 90%;
+  max-width: 320px;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background-color: #4f46e5; /* Indigo-600 */
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+.signup-button:hover {
+  background-color: #3730a3; /* Indigo-700 */
+  transform: translateY(-1px);
+}
+
+/* Footer link */
+.login-link {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+.login-link span {
+  color: #4f46e5;
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link span:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .signup-header h1 {
+    font-size: 1.7rem;
+  }
+
+  .signup-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .form-group input,
+  .signup-button {
+    width: 100%;
+    max-width: 100%;
+  }
+}
