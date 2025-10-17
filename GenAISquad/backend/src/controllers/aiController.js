@@ -141,7 +141,7 @@ ${note.aiSummary.body}
     
     console.log('Raw AI response:', aiText);
 
-    // 🔥 ROBUST JSON EXTRACTION - handles any user input
+    //  ROBUST JSON EXTRACTION - handles any user input
     let cleanedText = aiText.trim();
     
     // Remove ALL markdown code blocks (json, javascript, etc.)
