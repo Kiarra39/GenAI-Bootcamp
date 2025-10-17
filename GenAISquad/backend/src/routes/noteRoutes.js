@@ -12,7 +12,6 @@ const auth = require('../middleware/authMiddleware');
 router.post('/', auth, createNote);
 router.get('/:folderId', auth, getNotesByFolder);
 router.put('/:noteId', auth, updateNote);
-router.post('/:noteId/summary', auth, generateSummary);
 router.delete('/:id',auth,deleteNote)
 
 module.exports = router;
