@@ -9,7 +9,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://genai-bootcamp.onrender.com",
+  baseURL: "https://genai-bootcamp.onrender.com/api",
   headers: {
     "Content-Type": "application/json",
   },
