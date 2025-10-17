@@ -53,13 +53,13 @@ export function AuthProvider({ children }) {
     }
     if (userInfo) setUser(userInfo);
   };
-
+ 
   // LOGIN
   const login = async ({ email, password }) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/api/auth/login", { email, password });
       const token = res.data?.token;
       if (!token) throw new Error("No token returned from server");
 
@@ -84,7 +84,7 @@ export function AuthProvider({ children }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await api.post("/auth/register", {
+      const res = await api.post("/api/auth/register", {
         username,
         email,
         password,
