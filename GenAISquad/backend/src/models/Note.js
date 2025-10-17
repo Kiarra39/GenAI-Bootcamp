@@ -14,11 +14,13 @@ const noteSchema = new mongoose.Schema({
   content: { type: String, default: '' },
 
   aiSummary: {
-    heading: String,
-    body: String,
-    importantPoints: [String],
-    lastGeneratedAt: Date,
-  },
+  heading: { type: String },
+  body: { type: String },
+  importantPoints: { type: [String], default: [] },
+  examples: { type: [String], default: [] },
+  originalContent: { type: String },
+  lastGeneratedAt: { type: Date }
+},
 
   files: [fileSchema],
   lastModified: { type: Date, default: Date.now },

@@ -12,6 +12,8 @@
   max-width: 1100px;
   margin: 2rem auto;
   padding: 0 2rem;
+  /* Prevent horizontal scroll on page */
+  overflow-x: hidden;
 }
 
 .note-title {
@@ -92,6 +94,9 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin-bottom: 3rem;
+  /* Ensure sections don't overflow */
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .ai-section h2 {
@@ -101,6 +106,11 @@
   margin-bottom: 0.8rem;
 }
 
+.summary-section {
+  max-width: 100%;
+  overflow: hidden;
+}
+
 .summary-box {
   background: #fff;
   border-radius: 12px;
@@ -108,11 +118,135 @@
   border: 1px solid #e2e2f0;
   min-height: 150px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  /* FIX WIDTH AND HEIGHT */
+  max-width: 100%;
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  line-height: 1.5;
 }
 
+/* Style the scrollbar for better appearance */
+.summary-box::-webkit-scrollbar {
+  width: 6px;
+}
+
+.summary-box::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.summary-box::-webkit-scrollbar-thumb {
+  background: #c4b5fd;
+  border-radius: 10px;
+}
+
+.summary-box::-webkit-scrollbar-thumb:hover {
+  background: #8b5cf6;
+}
+
+/* Improve typography inside summary box */
+.summary-box h3 {
+  color: #3b1b8c;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #ddd6fe;
+  padding-bottom: 0.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.summary-box h4 {
+  color: #5b21b6;
+  margin: 1.2rem 0 0.5rem 0;
+  font-size: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.summary-box p {
+  margin-bottom: 1rem;
+  color: #4b5563;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.summary-box ul {
+  padding-left: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.summary-box li {
+  margin-bottom: 0.3rem;
+  color: #4b5563;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+/* Specifically handle long words/URLs */
+.summary-box * {
+  word-break: break-word;
+}
+
+.mindmap-section {
+  min-height: 300px;
+}
+/* Add to NotePage.css */
+.mindmap-section {
+  position: relative;
+}
+
+.mindmap-section h2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.ai-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  min-height: 500px;
+}
+
+@media (max-width: 900px) {
+  .ai-section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .mindmap-container {
+    height: 400px;
+  }
+}
 .no-mindmap {
   color: #5c5c7b;
   font-size: 0.95rem;
+}
+
+/* Loading and error states */
+.summary-box p:only-child {
+  color: #7c7ca3;
+  font-style: italic;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.summary-box .error {
+  color: #dc2626;
+  background: #fef2f2;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border-left: 4px solid #dc2626;
 }
 
 /* File Upload */
@@ -132,5 +266,23 @@
 @media (max-width: 900px) {
   .ai-section {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .summary-box {
+    max-height: 300px;
+  }
+  
+  .notepage-content {
+    padding: 0 1rem;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+    text-align: center;
   }
 }

@@ -4,7 +4,6 @@ const {
   createNote,
   getNotesByFolder,
   updateNote,
-  generateSummary,
   deleteNote
 } = require('../controllers/noteController');
 const auth = require('../middleware/authMiddleware');

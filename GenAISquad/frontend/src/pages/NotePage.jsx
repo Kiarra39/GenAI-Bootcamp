@@ -11,11 +11,12 @@ export default function NotePage() {
   const { id: noteId } = useParams();
   const [note, setNote] = useState(null);
   const [content, setContent] = useState("");
-  const [summary, setSummary] = useState("");
+  const [summary, setSummary] = useState(null); // structured object
   const [nodes, setNodes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [mindmapError, setMindmapError] = useState(false);
 
   const saveTimer = useRef(null);
 
@@ -26,7 +27,7 @@ export default function NotePage() {
       const res = await api.get(`/notes/${noteId}`);
       setNote(res.data);
       setContent(res.data.content || "");
-      if (res.data.aiSummary?.text) setSummary(res.data.aiSummary.text);
+      if (res.data.aiSummary) setSummary(res.data.aiSummary);
       setLoading(false);
     } catch (err) {
       setError("Failed to load note");
@@ -35,14 +36,22 @@ export default function NotePage() {
   };
 
   // Fetch mindmap nodes
-  const fetchNodes = async () => {
-    try {
-      const res = await api.get(`/nodes/${noteId}`);
-      setNodes(res.data);
-    } catch (err) {
-      console.log("No nodes yet");
-    }
-  };
+  // Fetch mindmap nodes
+// Fetch mindmap nodes
+// Fetch mindmap nodes
+const fetchNodes = async () => {
+  try {
+    const res = await api.get(`/ai/nodes/${noteId}`); // Use AI route instead
+    console.log("Fetched nodes:", res.data);
+    // Handle different response formats
+    const nodesData = res.data.data || res.data || [];
+    setNodes(nodesData);
+  } catch (err) {
+    console.log("No nodes yet or fetch error:", err.message);
+    setNodes([]);
+  }
+};
+
 
   useEffect(() => {
     fetchNote();
@@ -55,7 +64,8 @@ export default function NotePage() {
     saveTimer.current = setTimeout(async () => {
       try {
         setSaving(true);
-        await api.put(`/notes/${noteId}`, { content: updatedContent });
+        const safeContent = updatedContent.replace(/\\/g, "\\\\"); // escape backslashes
+        await api.put(`/notes/${noteId}`, { content: safeContent });
         setSaving(false);
       } catch {
         setSaving(false);
@@ -63,35 +73,56 @@ export default function NotePage() {
     }, 2000);
   };
 
+  // Handle content change
   const handleContentChange = (e) => {
     const newContent = e.target.value;
     setContent(newContent);
+    // Invalidate summary whenever user edits the note
+    setSummary(null);
     autoSave(newContent);
   };
 
   // Generate AI summary
   const handleGenerateSummary = async () => {
-    try {
-      setSummary("Generating summary...");
-      const res = await api.post(`/ai/summary/${noteId}`);
-      setSummary(res.data.body || res.data.summary || "Summary generated!");
-    } catch (err) {
-      setSummary("Error generating summary.");
+  if (!content.trim()) {
+    setSummary({ error: "Please write some content before generating a summary." });
+    return;
+  }
+
+  try {
+    setSummary({ loading: true });
+    const res = await api.post(`/ai/summary/${noteId}`);
+    let summaryData = res.data.summary;
+
+    // Parse string if necessary
+    if (typeof summaryData === "string") {
+      try {
+        summaryData = JSON.parse(summaryData);
+      } catch (err) {
+        summaryData = { heading: "Summary", body: summaryData, importantPoints: [], examples: [] };
+      }
     }
-  };
+
+    setSummary(summaryData);
+  } catch (err) {
+    setSummary({ error: err.response?.data?.message || "Error generating summary." });
+    console.error(err);
+  }
+};
 
   // Generate Mindmap
-  const handleGenerateMindmap = async () => {
-    try {
-      const res = await api.post(`/ai/nodes/${noteId}`);
-      const nodeData = res.data.data?.content;
-      if (nodeData) {
-        setNodes(JSON.parse(nodeData));
-      }
-    } catch (err) {
-      console.error("Error generating mindmap");
-    }
-  };
+  // Temporary test function
+// Generate Mindmap
+const handleGenerateMindmap = async () => {
+  try {
+    const res = await api.post(`/ai/nodes/${noteId}`);
+    console.log("AI nodes response:", res.data);
+    setNodes(res.data.data || res.data || []);
+  } catch (err) {
+    console.error("Error generating mindmap", err);
+    setError("Failed to generate mindmap. Please try again.");
+  }
+};
 
   if (loading) return <p className="loading-text">Loading note...</p>;
 
@@ -124,7 +155,42 @@ export default function NotePage() {
           <div className="summary-section">
             <h2>AI Summary</h2>
             <div className="summary-box">
-              {summary ? <p>{summary}</p> : <p>No summary yet.</p>}
+              {summary ? (
+                summary.loading ? (
+                  <p>Generating summary...</p>
+                ) : summary.error ? (
+                  <p>{summary.error}</p>
+                ) : (
+                  <div>
+                    <h3>{summary.heading}</h3>
+                    <p>{summary.body}</p>
+
+                    {summary.importantPoints?.length > 0 && (
+                      <div>
+                        <h4>Important Points:</h4>
+                        <ul>
+                          {summary.importantPoints.map((point, idx) => (
+                            <li key={idx}>{point}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {summary.examples?.length > 0 && (
+                      <div>
+                        <h4>Examples:</h4>
+                        <ul>
+                          {summary.examples.map((ex, idx) => (
+                            <li key={idx}>{ex}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )
+              ) : (
+                <p>No summary yet.</p>
+              )}
             </div>
           </div>
 
@@ -137,7 +203,18 @@ export default function NotePage() {
             )}
           </div>
         </div>
-
+<div className="mindmap-section">
+  <h2>Mindmap</h2>
+  {mindmapError ? (
+    <div className="error-message">
+      Mindmap failed to load. Please try refreshing the page.
+    </div>
+  ) : nodes.length > 0 ? (
+    <MindMap nodes={nodes} />
+  ) : (
+    <p className="no-mindmap">No mindmap generated yet.</p>
+  )}
+</div>
         <div className="upload-section">
           <h3>Upload Related File</h3>
           <FileUpload noteId={noteId} />
