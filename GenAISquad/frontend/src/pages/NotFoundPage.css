@@ -1,0 +1,87 @@
+/* src/pages/NotFoundPage.css */
+
+.notfound-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(180deg, #f8f6ff 0%, #ede9fe 100%);
+  font-family: "Inter", sans-serif;
+}
+
+.notfound-card {
+  background-color: #fff;
+  padding: 3rem 4rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  max-width: 500px;
+  width: 90%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.notfound-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 35px rgba(91, 33, 182, 0.15);
+}
+
+.notfound-title {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #5b21b6;
+  margin-bottom: 1rem;
+}
+
+.notfound-message {
+  color: #5c5c7b;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.notfound-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.btn {
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #5b21b6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #4c1d95;
+}
+
+.btn-secondary {
+  background-color: #ede9fe;
+  color: #4c1d95;
+}
+
+.btn-secondary:hover {
+  background-color: #ddd6fe;
+}
+
+@media (max-width: 480px) {
+  .notfound-card {
+    padding: 2rem;
+  }
+
+  .notfound-title {
+    font-size: 3rem;
+  }
+
+  .notfound-message {
+    font-size: 1rem;
+  }
+}
