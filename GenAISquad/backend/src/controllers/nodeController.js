@@ -40,7 +40,7 @@ exports.getNodes = async (req, res) => {
 exports.updateNode = async (req, res) => {
   try {
     const { nodeId } = req.params;
-    const { title, snippet } = req.body;
+    const { title,  snippet } = req.body;
 
     const node = await Node.findById(nodeId);
     if (!node) return res.status(404).json({ message: 'Node not found' });

@@ -24,7 +24,7 @@ exports.updateFolder = async (req, res) => {
     const folder = await Folder.findById(req.params.id);
     if (!folder) return res.status(404).json({ message: "Folder not found" });
 
-    folder.name = req.body.name || folder.name;
+    folder.title = req.body.title || folder.title;
     await folder.save();
 
     res.json(folder);
