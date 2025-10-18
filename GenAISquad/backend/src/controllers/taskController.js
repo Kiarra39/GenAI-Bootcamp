@@ -5,7 +5,7 @@ exports.createTask = async (req, res) => {
     const { title, description, startTime, endTime } = req.body;
 
     const newTask = new Task({
-      userId: req.user,
+      userId: req.userId,
       title,
       description,
       startTime,
