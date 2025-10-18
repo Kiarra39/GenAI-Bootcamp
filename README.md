@@ -92,7 +92,7 @@ Visual representation of note concepts and relationships.
 Interactive and expandable using React Flow.
 
 ![AI Summary](./Images/AiSummary.png)
-![Mind Map](./Images/AiSummary.png)
+![Mind Map](./Images/Mindmap.png)
 
 ---
 
