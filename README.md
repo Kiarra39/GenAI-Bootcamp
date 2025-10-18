@@ -1,86 +1,240 @@
-# MindMapAI – AI-Powered Visual Knowledge Mapper
+# 🧠 MindMapAI – AI-Powered Visual Knowledge Mapper
 
-## Overview
-MindMapAI is an intelligent tool designed to help learners, researchers, and professionals manage, explore, and understand large volumes of unstructured information. By transforming plain text, notes, or documents into interactive mind maps, it visualizes relationships between concepts, enabling better comprehension, retention, and exploration of complex topics.
-
-With the integration of generative AI (Gemini API) and modern web technologies, MindMapAI turns static text into dynamic, navigable knowledge networks, bridging the gap between raw information and structured understanding.
+**MindMapAI** is an intelligent MERN-based study and productivity platform that helps learners, researchers, and professionals organize and understand complex information visually.  
+It combines **AI-driven summarization**, **interactive mind mapping**, and a **task scheduler** into one seamless workspace.
 
 ---
 
-## Features
-- **Text & Document Input**: Upload notes, paste text, or convert PDFs into analyzable content.  
-- **AI-Powered Mind Map Generation**: Automatically extracts key concepts and their relationships to create an interactive map.  
-- **Node Details & Expansion**: Click on nodes to view summaries, references, related ideas, and context-aware explanations.  
-- **Learning Support**: Generates flashcards and quiz questions from nodes for active recall and revision.  
-- **Export & Share**: Download mind maps as PNG images or JSON files for sharing or future use.  
-- **Optional RAG Integration**: Enrich nodes with relevant external data from Wikipedia or uploaded documents.  
+## 🚀 Overview
+
+MindMapAI transforms your notes into **AI-generated summaries** and **concept maps**, enabling structured learning and better retention.  
+Each note can be **summarized by AI**, **visualized as a mind map**, and **linked to related concepts**, while the **task manager** helps you plan study sessions effectively.
+
+> “Turn your notes into knowledge — powered by AI.”
 
 ---
 
-## How It Works
-1. **Frontend**:  
-   - Built with **React.js**, providing a responsive and modular interface.  
-   - Features pages for note uploads, mind map viewing (via **React Flow** or **D3.js**), and node details.  
-   - Handles user interactions and communicates with the backend via **Axios** or fetch APIs.  
+## ✨ Key Features
 
-2. **Backend**:  
-   - **Node.js + Express.js** API server processes requests from the frontend.  
-   - Preprocesses text input and postprocesses AI outputs into a structured node-edge format.  
-   - Handles authentication, CORS, and secure communication with the Gemini AI API.  
+### 🗂 Folder & Note Management
+- Organize notes under folders for each subject or topic.
+- Create, edit, and delete folders or notes.
+- Rich-text note editing with autosave and Markdown support.
 
-3. **AI Layer – Gemini API**:  
-   - Extracts entities (concepts) and their relationships from the input text.  
-   - Generates JSON-based knowledge graphs, summaries, quizzes, and related ideas.  
-   - Optional Retrieval-Augmented Generation (RAG) fetches additional context from external sources.  
+### 🤖 AI Summarization
+- Instantly summarize any note using **Google Gemini AI**.
+- Generates:
+  - A concise **summary heading**  
+  - **Detailed explanation**
+  - **Important points**
+  - Timestamp of last AI generation
 
-4. **Database – MongoDB**:  
-   - Stores user profiles, session data, and generated mind maps.  
-   - Maintains node metadata, summaries, and quiz information for retrieval and reusability.  
+### 🧩 Mind Map Generation
+- Convert summarized notes into **interactive concept maps**.
+- Each node represents a concept, connected by relationships.
+- Click nodes to expand, view details, or generate new related ideas.
 
----
+### ⏰ Task Scheduler
+- Create and manage study or project tasks.
+- Set titles, descriptions, and time limits.
+- Edit or delete tasks from your dashboard.
 
-## Tech Stack
-- **Frontend**: React.js, React Flow / D3.js, Tailwind CSS / Material UI  
-- **Backend**: Node.js, Express.js  
-- **AI**: Gemini API (Generative AI for concept extraction and summarization)  
-- **Database**: MongoDB  
-- **Communication**: Axios / Fetch APIs  
-- **Optional Integrations**: Wikipedia API or custom document sources for RAG  
-
----
-
-## Benefits
-- Visualizes complex topics as interactive concept maps.  
-- Enhances understanding and knowledge retention.  
-- Facilitates exploration of relationships between ideas.  
-- Supports active learning with quizzes and summaries.  
-- Enables sharing and exporting of mind maps for collaboration.  
+### 📤 Export & Share
+- Export mind maps as **PNG images** or **JSON structures**.
+- Share with collaborators or save for offline use.
 
 ---
 
-## Future Scope
-- Support for keyword-based topic generation.  
-- Integration with more external data sources for enriched context.  
-- Collaborative mind mapping with real-time multi-user editing.  
-- Mobile-friendly interface and offline support.  
+## 🖼️ User Interface (Frontend Screens)
+
+Below are example UI sections — replace the placeholders with your actual image file paths once added to the repo.
+
+### 🔐 Login / Register
+User authentication with JWT.  
+Provides access to personalized notes, folders, and AI data.
+
+![Login Page](./Images/Login.png)
+![Register Page](./Images/Register.png)
 
 ---
 
-## Getting Started
-1. Clone the repository:  
-   `git clone <repository-url>`  
-2. Install dependencies for frontend and backend:  
-   `npm install` (in both directories)  
-3. Configure environment variables for Gemini API and MongoDB connection.  
-4. Run the backend server:  
-   `npm run start`  
-5. Run the frontend app:  
-   `npm run start`  
-6. Open your browser at `http://localhost:3000` and start creating AI-generated mind maps.  
+### 🏠 Dashboard
+Displays all folders and tasks at a glance.  
+Allows quick access to folders and the task scheduler.
+
+![Dashboard](./Images/Dashboard.png)
 
 ---
 
-## License
-This project is licensed under NONE . Also This is a Open Source 
+### 📁 Folder View
+Each folder lists its associated notes with quick-create and edit options.
 
-Testing Forking
+![Folder View](./Images/Dashboard.png)
+
+---
+
+### 📝 Note Editor
+The core workspace for writing and editing notes.  
+Integrates AI tools and mind map generation.
+
+![Note Editor](./Images/NoteEditor.png)
+
+#### Features inside Note Editor:
+- AI summary generation
+- File uploads
+- Mind map viewer (React Flow or D3.js)
+- Save and modify notes instantly
+
+---
+
+### 🧠 AI-Generated Mind Map
+Visual representation of note concepts and relationships.  
+Interactive and expandable using React Flow.
+
+![AI Summary](./Images/AiSummary.png)
+![Mind Map](./Images/AiSummary.png)
+
+---
+
+### 📅 Task Manager
+Manage all upcoming and completed tasks for study sessions.
+
+![Task Manager](./Images/Task.png)
+
+---
+
+## ⚙️ How It Works
+
+### **1. Frontend (React.js)**
+- Built with **React + Axios + React Router**.
+- Components: Dashboard, FolderList, NoteEditor, MindMap, and TaskManager.
+- Communicates securely with backend APIs using JWT authentication.
+
+### **2. Backend (Node.js + Express.js)**
+- Handles authentication, folders, notes, summaries, nodes, and tasks.
+- Integrates **Google Gemini AI** for note summarization and node generation.
+- All routes are protected with JWT middleware.
+
+| Route | Method | Description |
+|-------|---------|-------------|
+| `/api/auth/register` | POST | Register a new user |
+| `/api/auth/login` | POST | Login user and return token |
+| `/api/folders` | GET/POST/PUT/DELETE | Manage user folders |
+| `/api/notes` | GET/POST/PUT/DELETE | CRUD operations for notes |
+| `/api/notes/:noteId/ai-summary` | POST | Generate AI summary for a note |
+| `/api/nodes/:noteId/generate` | POST | Generate concept nodes using AI |
+| `/api/tasks` | GET/POST/PUT/DELETE | Manage scheduled tasks |
+
+---
+## 🧠 AI Layer – Google Gemini API
+
+MindMapAI integrates **Google Gemini AI** to intelligently process and understand your note content.  
+It performs **summarization**, **concept extraction**, and **relationship mapping**, turning your written notes into interactive visual mind maps.
+
+# 🚀 AI-Powered Features
+
+### 🤖 AI Summarization
+Condenses long notes into short, readable summaries.
+
+### 🧩 Node Generation
+Extracts key ideas and relationships for mind map visualization.
+
+### 🌐 Context Expansion *(Future Feature)*
+Fetches related data using Retrieval-Augmented Generation (RAG).
+
+### 🧠 Smart Learning Tools
+Upcoming quiz and flashcard generation for better retention.
+
+---
+
+## 🧰 Tech Stack
+
+| **Layer**              | **Technology**                             |
+|------------------------|---------------------------------------------|
+| **Frontend**           | React.js, React Router, Axios, CSS          |
+| **Backend**            | Node.js, Express.js                         |
+| **Database**           | MongoDB                                    |
+| **AI Integration**     | Google Gemini API                          |
+| **Visualization**      | React Flow / D3.js                         |
+| **Authentication**     | JWT (JSON Web Tokens)                      |
+| **Version Control**    | Git + GitHub                               |
+| **Deployment (Optional)** | Vercel (Frontend), Render / Railway (Backend) |
+
+---
+
+## 🪄 Benefits
+
+- 🧭 Converts unstructured notes into structured visual knowledge  
+- 💡 Enhances understanding with interactive AI mind maps  
+- 🔁 Encourages revision via summaries and future quiz integration  
+- 🧠 Combines AI + visualization + productivity in one workspace  
+- ⏱️ Saves time and simplifies complex learning tasks  
+
+---
+
+## 🧭 Getting Started
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/<your-username>/MindMapAI.git
+cd MindMapAI
+```
+
+### Install Dependencies
+```
+cd backend && npm install
+cd ../frontend && npm install
+```
+
+### Run the App
+# Start backend
+```
+npm run start
+```
+
+# Start frontend
+```
+npm run start
+```
+
+Now open http://localhost:3000 in your browser 🚀
+
+---
+
+## 🧠 App Flow
+
+1. User logs in or registers  
+2. Creates **folders** to organize subjects or topics  
+3. Adds **notes** under folders  
+4. Generates **AI summaries** and **mind maps** using Gemini API  
+5. Manages daily goals using the **task manager**  
+6. Optionally exports notes or maps for sharing  
+
+---
+
+## 🧩 Future Enhancements
+- 🌐 Wikipedia / document-based RAG (Retrieval-Augmented Generation)  
+- 🧍 Real-time collaborative editing for shared mind maps  
+- 📱 Mobile-friendly layout with offline note access  
+- 🧾 Quiz and flashcard generation for active learning  
+
+---
+
+## 🧾 License
+This project is **Open Source** and currently unlicensed.  
+You may freely use, modify, and contribute to  wit.
+
+---
+
+## 💡 Acknowledgments
+- **Google Gemini AI** for intelligent summarization  
+- **React Flow / D3.js** for mind map visualization  
+- **MongoDB Atlas** for reliable data storage  
+- **CSS / Tailwind** for modern responsive UI  
+
+---
+
+> 🧠 *"MindMapAI — Transforming your notes into networks of knowledge."*
+
+
+
