@@ -11,28 +11,30 @@ export default function TaskPage() {
   const [error, setError] = useState("");
 
   // Fetch all tasks
-  const fetchTasks = async () => {
-    try {
-      setLoading(true);
-      const res = await api.get("/tasks");
-      setTasks(res.data);
-      setLoading(false);
-    } catch (err) {
-      setError("Failed to load tasks");
-      setLoading(false);
-    }
-  };
+const fetchTasks = async () => {
+  try {
+    setLoading(true);
+    const res = await api.get("/tasks");
+    console.log("Tasks fetched:", res.data); 
+    setTasks(res.data);
+    setLoading(false);
+  } catch (err) {
+    console.error("Fetch error:", err.response || err);
+    setError("Failed to load tasks");
+    setLoading(false);
+  }
+};
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
 
   // Create a new task
   const handleAddTask = async (e) => {
     e.preventDefault();
     if (!newTask.trim()) return;
     try {
-      const res = await api.post("/tasks", { title: newTask, completed: false });
+      const res = await api.post("/tasks", {
+        title: newTask,
+        status: "pending",
+      });
       setTasks((prev) => [...prev, res.data]);
       setNewTask("");
     } catch (err) {
@@ -43,7 +45,10 @@ export default function TaskPage() {
   // Toggle task completion
   const toggleTask = async (task) => {
     try {
-      const updated = { ...task, completed: !task.completed };
+      const updated = {
+        ...task,
+        status: task.status === "completed" ? "pending" : "completed",
+      };
       await api.put(`/tasks/${task._id}`, updated);
       setTasks((prev) =>
         prev.map((t) => (t._id === task._id ? updated : t))
@@ -63,7 +68,9 @@ export default function TaskPage() {
       setError("Error deleting task");
     }
   };
-
+useEffect(() => {
+  fetchTasks();
+}, []);
   return (
     <div className="taskpage-container">
       <Navbar />
@@ -95,12 +102,14 @@ export default function TaskPage() {
             {tasks.map((task) => (
               <div
                 key={task._id}
-                className={`task-card ${task.completed ? "completed" : ""}`}
+                className={`task-card ${
+                  task.status === "completed" ? "completed" : ""
+                }`}
               >
                 <div className="task-info">
                   <input
                     type="checkbox"
-                    checked={task.completed}
+                    checked={task.status === "completed"}
                     onChange={() => toggleTask(task)}
                   />
                   <input
@@ -119,7 +128,7 @@ export default function TaskPage() {
                       try {
                         await api.put(`/tasks/${task._id}`, {
                           title: task.title,
-                          completed: task.completed,
+                          status: task.status,
                         });
                       } catch (err) {
                         setError("Error saving task");
