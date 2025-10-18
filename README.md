@@ -121,8 +121,8 @@ Manage all upcoming and completed tasks for study sessions.
 | `/api/auth/login` | POST | Login user and return token |
 | `/api/folders` | GET/POST/PUT/DELETE | Manage user folders |
 | `/api/notes` | GET/POST/PUT/DELETE | CRUD operations for notes |
-| `/api/notes/:noteId/ai-summary` | POST | Generate AI summary for a note |
-| `/api/nodes/:noteId/generate` | POST | Generate concept nodes using AI |
+| `/api/ai/summary` | POST | Generate AI summary for a note |
+| `/api/nodes` | POST | Generate and store concept nodes using AI |
 | `/api/tasks` | GET/POST/PUT/DELETE | Manage scheduled tasks |
 
 ---
@@ -158,7 +158,7 @@ Upcoming quiz and flashcard generation for better retention.
 | **Visualization**      | React Flow / D3.js                         |
 | **Authentication**     | JWT (JSON Web Tokens)                      |
 | **Version Control**    | Git + GitHub                               |
-| **Deployment (Optional)** | Vercel (Frontend), Render / Railway (Backend) |
+| **Deployment (Optional)** | Vercel (Frontend), Render (Backend) |
 
 ---
 
@@ -176,7 +176,7 @@ Upcoming quiz and flashcard generation for better retention.
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/<your-username>/MindMapAI.git
+git clone https://github.com/zyntrom/GenAI-Bootcamp.git
 cd MindMapAI
 ```
 
